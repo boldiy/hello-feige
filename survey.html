@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APP满意度调查</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segue UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .question {
+            margin-bottom: 25px;
+        }
+        .question h3 {
+            color: #444;
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+        .options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .option {
+            flex: 1;
+            min-width: 80px;
+        }
+        .option input {
+            display: none;
+        }
+        .option label {
+            display: block;
+            padding: 12px 8px;
+            text-align: center;
+            background: #f0f0f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        .option input:checked + label {
+            background: #667eea;
+            color: white;
+        }
+        .stars {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        .star {
+            font-size: 2rem;
+            color: #ddd;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .star.active,
+        .star:hover {
+            color: #ffc107;
+        }
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 100px;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .submit {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .submit:hover {
+            opacity: 0.9;
+        }
+        .success {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+        .success h2 {
+            color: #28a745;
+            margin-bottom: 15px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="form">
+            <h1>📱 APP满意度调查</h1>
+            <p class="subtitle">感谢您抽出宝贵时间帮助我们改进</p>
+
+            <!-- 整体评分 -->
+            <div class="question">
+                <h3>1. 您对APP的整体满意度？</h3>
+                <div class="stars" id="overall-stars">
+                    <span class="star" data-value="1">★</span>
+                    <span class="star" data-value="2">★</span>
+                    <span class="star" data-value="3">★</span>
+                    <span class="star" data-value="4">★</span>
+                    <span class="star" data-value="5">★</span>
+                </div>
+            </div>
+
+            <!-- 功能满意度 -->
+            <div class="question">
+                <h3>2. 功能是否满足您的需求？</h3>
+                <div class="options">
+                    <div class="option"><input type="radio" name="feature" id="f1" value="1"><label for="f1">非常不满足</label></div>
+                    <div class="option"><input type="radio" name="feature" id="f2" value="2"><label for="f2">不太满足</label></div>
+                    <div class="option"><input type="radio" name="feature" id="f3" value="3"><label for="f3">一般</label></div>
+                    <div class="option"><input type="radio" name="feature" id="f4" value="4"><label for="f4">比较满足</label></div>
+                    <div class="option"><input type="radio" name="feature" id="f5" value="5"><label for="f5">非常满足</label></div>
+                </div>
+            </div>
+
+            <!-- 使用体验 -->
+            <div class="question">
+                <h3>3. 使用体验如何？</h3>
+                <div class="options">
+                    <div class="option"><input type="radio" name="experience" id="e1" value="1"><label for="e1">很差</label></div>
+                    <div class="option"><input type="radio" name="experience" id="e2" value="2"><label for="e2">较差</label></div>
+                    <div class="option"><input type="radio" name="experience" id="e3" value="3"><label for="e3">一般</label></div>
+                    <div class="option"><input type="radio" name="experience" id="e4" value="4"><label for="e4">较好</label></div>
+                    <div class="option"><input type="radio" name="experience" id="e5" value="5"><label for="e5">很好</label></div>
+                </div>
+            </div>
+
+            <!-- 界面设计 -->
+            <div class="question">
+                <h3>4. 界面设计美观吗？</h3>
+                <div class="options">
+                    <div class="option"><input type="radio" name="design" id="d1" value="1"><label for="d1">很丑</label></div>
+                    <div class="option"><input type="radio" name="design" id="d2" value="2"><label for="d2">一般</label></div>
+                    <div class="option"><input type="radio" name="design" id="d3" value="3"><label for="d3">还行</label></div>
+                    <div class="option"><input type="radio" name="design" id="d4" value="4"><label for="d4">美观</label></div>
+                    <div class="option"><input type="radio" name="design" id="d5" value="5"><label for="d5">非常美观</label></div>
+                </div>
+            </div>
+
+            <!-- 加载速度 -->
+            <div class="question">
+                <h3>5. APP加载速度快吗？</h3>
+                <div class="options">
+                    <div class="option"><input type="radio" name="speed" id="s1" value="1"><label for="s1">很慢</label></div>
+                    <div class="option"><input type="radio" name="speed" id="s2" value="2"><label for="s2">较慢</label></div>
+                    <div class="option"><input type="radio" name="speed" id="s3" value="3"><label for="s3">一般</label></div>
+                    <div class="option"><input type="radio" name="speed" id="s4" value="4"><label for="s4">较快</label></div>
+                    <div class="option"><input type="radio" name="speed" id="s5" value="5"><label for="s5">很快</label></div>
+                </div>
+            </div>
+
+            <!-- 建议反馈 -->
+            <div class="question">
+                <h3>6. 您的建议和意见（选填）</h3>
+                <textarea id="feedback" placeholder="请告诉我们如何改进..."></textarea>
+            </div>
+
+            <button class="submit" onclick="submitSurvey()">提交反馈</button>
+        </div>
+
+        <div class="success" id="success">
+            <h2>✅ 感谢您的反馈！</h2>
+            <p>您的意见对我们非常重要</p>
+            <p>我们会继续改进，为您提供更好的体验</p>
+        </div>
+    </div>
+
+    <script>
+        let overallScore = 0;
+
+        // 星级评分
+        document.querySelectorAll('#overall-stars .star').forEach(star => {
+            star.addEventListener('click', () => {
+                overallScore = star.dataset.value;
+                updateStars(overallScore);
+            });
+            star.addEventListener('mouseenter', () => {
+                updateStars(star.dataset.value);
+            });
+        });
+
+        document.getElementById('overall-stars').addEventListener('mouseleave', () => {
+            updateStars(overallScore);
+        });
+
+        function updateStars(score) {
+            document.querySelectorAll('#overall-stars .star').forEach((star, index) => {
+                star.classList.toggle('active', index < score);
+            });
+        }
+
+        function submitSurvey() {
+            const feedback = document.getElementById('feedback').value;
+            
+            // 收集数据（这里只是示例，实际应该发送到服务器）
+            const data = {
+                overallScore,
+                featureSatisfaction: document.querySelector('input[name="feature"]:checked')?.value || 0,
+                experience: document.querySelector('input[name="experience"]:checked')?.value || 0,
+                design: document.querySelector('input[name="design"]:checked')?.value || 0,
+                speed: document.querySelector('input[name="speed"]:checked')?.value || 0,
+                feedback
+            };
+            
+            console.log('提交的数据：', data);
+            
+            // 显示成功
+            document.getElementById('form').classList.add('hidden');
+            document.getElementById('success').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
